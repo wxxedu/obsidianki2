@@ -10,7 +10,7 @@ def convert(line_content):
 	return line_content
 	
 def get_cloze(syntax, begin_or_end):
-	cloze = {"begin": "{{c¡::", "end": "}}"}
+	cloze = {"begin": "{{c¡::", "end": " }}"}
 	syntaxes = settings.whether_to_convert
 	if syntaxes[syntax]:
 		return cloze[begin_or_end]
@@ -58,22 +58,25 @@ def conversion(line_segments):
 					highlight_is_open = True
 			elif line_segments[i] == "$" and line_segments[i+1] == "$":
 				if display_math_is_open:
-					line_segments[i] = "\\["
+					line_segments[i] = "\\\["
 					line_segments[i + 1] = get_cloze("display math", "begin")
 					display_math_is_open = False
 				else:
 					line_segments[i] = get_cloze("display math", "end")
-					line_segments[i + 1] = "\\]"
+					line_segments[i + 1] = "\\\]"
 					display_math_is_open = True 
 		if line_segments[i] == "$":
 			if inline_math_is_open:
-				line_segments[i] = "\\(" + get_cloze("inline math", "begin")
-				display_math_is_open = False
+				line_segments[i] = "\\\(" + get_cloze("inline math", "begin")
+				inline_math_is_open = False
 			else:
-				line_segments[i] = get_cloze("inline math", "end") + "\\)"
+				line_segments[i] = get_cloze("inline math", "end") + "\\\)"
+				inline_math_is_open = True
 		elif line_segments[i] == "*":
 			if italics_is_open:
 				line_segments[i] = "*" + get_cloze("italics", "begin")
+				italics_is_open = True
 			else:
 				line_segments[i] = get_cloze("italics", "end") + "*"
+				italics_is_open = False
 	return line_segments

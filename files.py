@@ -89,6 +89,8 @@ class File:
 						single_note.flush()
 		else:
 			note_object = mw.col.newNote(deck_id)
+			note_object["Cloze"] = "{{c1::}}"
+			note_object["Text"] = ""
 			note_object[self.cloze_or_text] = self.get_markdown()
 			note_object["ZTK ID"] = str(self.file_ztk_id)
 			note_object["Back Extra"] = ""

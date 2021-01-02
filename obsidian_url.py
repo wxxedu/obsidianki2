@@ -13,7 +13,6 @@ vault_name = "Knowledge Base"
 def gen_obsidian_url(self, ztk_id):
 	vault_url = vault_root_url + encode(vault_name)
 	file_url = file_root_url + encode(get_folder_name(ztk_id)) + "%2F" + encode(get_file_name(ztk_id))
-	showInfo(vault_url + file_url)
 	return vault_url + file_url
 
 def get_folder_name(ztk_id):

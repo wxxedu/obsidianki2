@@ -15,12 +15,10 @@ vault_path = "/Users/xiuxuan/Library/Mobile Documents/iCloud~org~zrey~metion/Doc
 
 
 def refresh_obsidian_database():
-	showInfo("Database Refreshed")
 	files = read_vault()
 	obsidian_url.files = files
 	for file_object in files:
 		file_object.write_to_anki()
-	showInfo(str(len(files)))
 	
 def read_vault():
 	files = []
@@ -42,7 +40,6 @@ def read_vault():
 					with open(file_path, mode = "r", encoding = "utf-8") as f:
 						file_object = File(file_name_no_attribute, f.readlines(), folder_name)
 						files.append(file_object)
-	showInfo("Folders Removed: " + ", ".join(folders_removed))
 	return files
 	
 action = QAction("Import from Obsidian", mw)
