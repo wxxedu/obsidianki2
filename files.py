@@ -24,7 +24,6 @@ class File:
 	tags = []
 	
 	def __init__(self, file_name, file_lines, file_folder_name):
-		showInfo(file_name)
 		self.file_name = file_name
 		self.file_lines = file_lines
 		has_empty_lines = False
@@ -140,6 +139,8 @@ class File:
 						single_note["Text"] = ""
 						single_note[self.cloze_or_text] = self.get_markdown()
 						single_note["Back Extra"] = self.get_back_extra()
+						for tag in self.tags:
+							single_note.addTag(tag)
 						single_note.flush()
 		else:
 			note_object = mw.col.newNote(deck_id)
@@ -148,4 +149,6 @@ class File:
 			note_object[self.cloze_or_text] = self.get_markdown()
 			note_object["ZTK ID"] = str(self.file_ztk_id)
 			note_object["Back Extra"] = self.get_back_extra()
+			for tag in self.tags:
+				note_object.addTag(tag)
 			mw.col.add_note(note_object, deck_id)

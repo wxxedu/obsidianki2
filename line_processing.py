@@ -107,9 +107,6 @@ def wiki_link_processor(line_segments):
 				needs_split = False 
 				for index in range(anchor_points[anchor_index] + 2, anchor_points[anchor_index + 1] - 1):
 					check = ""
-#						for anchor_point in anchor_points:
-#							check = check + str(anchor_point) + " "
-#						showInfo("Anchor Points: " + check + "\n Anchor Index: %d" %(anchor_index))
 					wiki_link_content = wiki_link_content + line_segments[index]
 					if line_segments[index] == "|":
 						needs_split = True
