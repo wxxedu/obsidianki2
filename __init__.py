@@ -40,7 +40,7 @@ def read_vault():
 					for i in range(0, len(file_name) - 3):
 						file_name_no_attribute = file_name_no_attribute + file_name[i]
 					with open(file_path, mode = "r", encoding = "utf-8") as f:
-						file_object = File(file_name_no_attribute, f.read(), folder_name)
+						file_object = File(file_name_no_attribute, f.readlines(), folder_name)
 						files.append(file_object)
 	showInfo("Folders Removed: " + ", ".join(folders_removed))
 	return files
