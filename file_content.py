@@ -7,3 +7,7 @@ class file_content:
 	
 	def __init__(self, file_lines):
 		self.file_lines = file_lines
+		
+	def get_text(self):
+		text = "<br>".join(self.file_lines)
+		return text
