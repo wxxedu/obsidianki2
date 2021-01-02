@@ -6,7 +6,8 @@ This is an [Anki](https://github.com/ankitects/anki) plugin that allows you to i
 
 ### TODOs
 
-- [ ] Add support for link back to Obsidian
+- [x] Add support for link back to Obsidian
+- [x] Add support for metadata and tags
 - [ ] Work on the user interface
 - [ ] Work on a user manual
 
