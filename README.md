@@ -1,6 +1,6 @@
 # obsidianki2
 
-This is an [Anki}(https://github.com/ankitects/anki) plugin that allows you to import your obsidian vault into Anki. It is far from perfect, but it provides a way for you to access your obsidian files in Anki.
+This is an [Anki](https://github.com/ankitects/anki) plugin that allows you to import your obsidian vault into Anki. It is far from perfect, but it provides a way for you to access your obsidian files in Anki.
 
 ## Progress
 
