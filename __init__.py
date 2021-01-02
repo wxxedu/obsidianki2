@@ -9,26 +9,23 @@ from aqt import mw
 from .files import File
 import os
 from . import obsidian_url
-
-
-vault_path = "/Users/xiuxuan/Library/Mobile Documents/iCloud~org~zrey~metion/Documents/Knowledge Base"
-
+from . import settings
 
 def refresh_obsidian_database():
+	obsidian_url.refresh_obsidian_catalog()
 	files = read_vault()
-	obsidian_url.files = files
 	for file_object in files:
 		file_object.write_to_anki()
 	
 def read_vault():
 	files = []
-	folders_catalog = os.listdir(vault_path)
+	folders_catalog = os.listdir(settings.path_to_vault)
 	folders_removed = []
 	for folder_name in folders_catalog:
 		if folder_name[0] == "." or folder_name == "_cover.jpg":
 			folders_removed.append(folder_name)
 		else:
-			folder_path = vault_path + "/" + folder_name
+			folder_path = settings.path_to_vault + "/" + folder_name
 			files_catalog = os.listdir(folder_path)
 			for file_name in files_catalog:
 				file_name_segments = file_name.split(".")
