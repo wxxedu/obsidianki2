@@ -143,6 +143,8 @@ class File:
 						single_note["Back Extra"] = self.get_back_extra()
 						for tag in self.tags:
 							single_note.addTag(tag)
+						card_ids = mw.col.card_ids_of_note(single_note_id)
+						mw.col.set_deck(card_ids, deck_id)
 						single_note.flush()
 						find_existing_file = True 
 		if not find_existing_file:
