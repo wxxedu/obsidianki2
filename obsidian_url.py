@@ -6,7 +6,7 @@ import os
 
 vault_root_url = "obsidian://open?vault="
 file_root_url = "&file="
-vault_name = "Knowledge Base"
+vault_name = settings.vault_name
 
 folders = {}
 files = {}
