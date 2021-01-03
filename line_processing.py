@@ -2,6 +2,7 @@
 from . import settings
 from . import obsidian_url
 from aqt.utils import showInfo 
+import datetime
 
 def convert(line_content):
 	line_content = line_content.replace("{{", "{ {")
@@ -121,7 +122,12 @@ def wiki_link_processor(line_segments):
 						needs_split = True
 					line_segments[index] = ""
 				wiki_link_content_segments_1 = wiki_link_content.split(" ")
-				ztk_id = int(wiki_link_content_segments_1[0])
+				try:
+					ztk_id = int(wiki_link_content_segments_1[0])
+				except ValueError:
+					time = datetime.datetime.now()
+					time_str = time.strftime("%y%m%d%H%M%S")
+					ztk_id = int(time_str)
 				obsidian_url_link = obsidian_url.gen_obsidian_url(ztk_id)
 				wiki_link_name = ""
 				if needs_split:
