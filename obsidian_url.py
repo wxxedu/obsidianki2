@@ -3,6 +3,7 @@
 from aqt.utils import showInfo
 from . import settings
 import os 
+import datetime
 
 vault_root_url = "obsidian://open?vault="
 file_root_url = "&file="
@@ -22,12 +23,17 @@ def refresh_obsidian_catalog():
 				file_name_segments_1 = file_name.split(".")
 				if file_name_segments_1[len(file_name_segments_1)-1] == "md":
 					file_name_segments_2 = file_name.split(" ")
-					ztk_id = int(file_name_segments_2[0])
-					folders[ztk_id] = folder_name
+					try:
+						ztk_id = int(file_name_segments_2[0])
+					except ValueError:
+						time = datetime.datetime.now()
+						time_str = time.strftime("%y%m%d%H%M%S")
+						ztk_id = int(time_str)
 					file_name_segments_3 = []
 					for index in range(0, len(file_name_segments_1) - 1):
 						file_name_segments_3.append(file_name_segments_1[index])
 					file_name = " ".join(file_name_segments_3)
+					folders[ztk_id] = folder_name
 					files[ztk_id] = file_name
 	
 def gen_obsidian_url(ztk_id):

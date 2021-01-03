@@ -9,6 +9,7 @@ from . import markdown2
 from . import line_processing
 from . import obsidian_url
 from . import somedata
+import datetime
 
 class File:
 	
@@ -42,8 +43,14 @@ class File:
 		
 	
 	def get_file_ztk_id(self):
-		file_name_segments = self.file_name.split(" ")
-		self.file_ztk_id = int(file_name_segments[0])
+		try:
+			file_name_segments = self.file_name.split(" ")
+			self.file_ztk_id = int(file_name_segments[0])
+		except ValueError:
+			time = datetime.datetime.now()
+			time_str = time.strftime("%y%m%d%H%M%S")
+			self.file_ztk_id = int(time_str)
+			self.tags.append("ZTK ID Missing")
 		return self.file_ztk_id
 	
 	def get_file_name(self):
@@ -125,7 +132,7 @@ class File:
 	#####################################################################
 	
 	def write_to_anki(self):
-		deck_id = mw.col.decks.id(self.file_folder_name)
+		deck_id = mw.col.decks.id("Obsidian::" + self.file_folder_name)
 		mw.col.decks.select(deck_id)
 		
 		card_model = mw.col.models.byName("Obsidianki")
