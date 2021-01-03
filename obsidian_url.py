@@ -15,9 +15,7 @@ folders_removed = []
 
 def refresh_obsidian_catalog():
 	for folder_name in folders_catalog:
-		if folder_name[0] == "." or folder_name == "_cover.jpg":
-			folders_removed.append(folder_name)
-		else:
+		if not (folder_name[0] == "." or folder_name == "_cover.jpg" or folder_name.split(".")[len(folder_name.split("."))-1] == "md"):
 			folder_path = settings.path_to_vault + "/" + folder_name
 			files_catalog = os.listdir(folder_path)
 			for file_name in files_catalog:
