@@ -56,7 +56,7 @@ def conversion(line_segments):
 					line_segments[i + 1] = get_cloze("highlight", "begin")
 					highlight_is_open = False
 				else:
-					line_segments[i] == get_cloze("highlight", "end")
+					line_segments[i] = get_cloze("highlight", "end")
 					line_segments[i + 1] = "</label>"
 					highlight_is_open = True
 			elif line_segments[i] == "$" and line_segments[i+1] == "$":
@@ -68,20 +68,29 @@ def conversion(line_segments):
 					line_segments[i] = get_cloze("display math", "end")
 					line_segments[i + 1] = "\\\]"
 					display_math_is_open = True 
-		if line_segments[i] == "$":
-			if inline_math_is_open:
-				line_segments[i] = "\\\(" + get_cloze("inline math", "begin")
-				inline_math_is_open = False
-			else:
-				line_segments[i] = get_cloze("inline math", "end") + "\\\)"
-				inline_math_is_open = True
-		elif line_segments[i] == "*":
-			if italics_is_open:
-				line_segments[i] = "*" + get_cloze("italics", "begin")
-				italics_is_open = True
-			else:
-				line_segments[i] = get_cloze("italics", "end") + "*"
-				italics_is_open = False
+			elif line_segments[i] == "$":
+				if inline_math_is_open:
+					line_segments[i] = "\\\(" + get_cloze("inline math", "begin")
+					inline_math_is_open = False
+				else:
+					line_segments[i] = get_cloze("inline math", "end") + "\\\)"
+					inline_math_is_open = True
+			elif line_segments[i] == "*":
+				if italics_is_open:
+					line_segments[i] = "*" + get_cloze("italics", "begin")
+					italics_is_open = False
+				else:
+					line_segments[i] = get_cloze("italics", "end") + "*"
+					italics_is_open = True
+		if i == len(line_segments) - 1:
+			if line_segments[i] == "$":
+				if not inline_math_is_open:
+					line_segments[i] = get_cloze("inline math", "end") + "\\\)"
+					inline_math_is_open = True
+			elif line_segments[i] == "*":
+				if not italics_is_open:
+					line_segments[i] = get_cloze("italics", "end") + "*"
+					italics_is_open = False
 	return line_segments
 
 def wiki_link_processor(line_segments):
