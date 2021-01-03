@@ -8,6 +8,7 @@ from anki.collection import Collection
 from . import markdown2
 from . import line_processing
 from . import obsidian_url
+from . import somedata
 
 class File:
 	
@@ -145,12 +146,20 @@ class File:
 						single_note.flush()
 						find_existing_file = True 
 		if not find_existing_file:
-			note_object = mw.col.newNote(deck_id)
-			note_object["Cloze"] = "{{c1::}}"
-			note_object["Text"] = ""
-			note_object[self.cloze_or_text] = self.get_markdown()
-			note_object["ZTK ID"] = str(self.file_ztk_id)
-			note_object["Back Extra"] = self.get_back_extra()
-			for tag in self.tags:
-				note_object.addTag(tag)
-			mw.col.add_note(note_object, deck_id)
+			try:
+				deck = mw.col.decks.get(deck_id)
+				deck['mid'] = card_model["id"]
+				mw.col.decks.save(deck)
+				note_object = mw.col.newNote(deck_id)
+				note_object["Cloze"] = "{{c1::}}"
+				note_object["Text"] = ""
+				note_object[self.cloze_or_text] = self.get_markdown()
+				note_object["ZTK ID"] = str(self.file_ztk_id)
+				note_object["Back Extra"] = self.get_back_extra()
+				for tag in self.tags:
+					note_object.addTag(tag)
+				mw.col.add_note(note_object, deck_id)
+			except TypeError:
+				if not somedata.no_obsidian_template_info_shown:
+					showInfo("<h1>Import Obsidianki Template First!</h1><br>Obsidianki add-on needs the obsidianki template, and you will have to import it for this add-on to work. The Obsidianki template is included in the Obsidianki add-on folder. If you cannot find the add-on folder, please click on <a href = \"https://github.com/wxxedu/obsidianki2/blob/main/Obsidianki.apkg\">this link</a> to download the Obsidianki template.")
+					somedata.no_obsidian_template_info_shown = True

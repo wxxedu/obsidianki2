@@ -12,6 +12,7 @@ from . import obsidian_url
 from . import settings
 
 def refresh_obsidian_database():
+	somedata.no_obsidian_template_info_shown = False
 	obsidian_url.refresh_obsidian_catalog()
 	files = read_vault()
 	for file_object in files:
