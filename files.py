@@ -64,7 +64,7 @@ class File:
 		for index in range(0, len(self.file_lines)):
 			if self.file_lines[index][0] == "`" and self.file_lines[index][1] == "`" and self.file_lines[index][2] == "`":
 				code_beginning = not code_beginning
-			if not code_beginning:
+			elif not code_beginning:
 				self.file_lines[index] = line_processing.convert(self.file_lines[index])
 				if self.file_lines[index][0] == "#" and self.file_lines[index][1] == " " and self.first_heading_1:
 					self.first_heading_1 = False
