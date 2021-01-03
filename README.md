@@ -1,5 +1,7 @@
 # obsidianki2
 
+> This plugin **ONLY SUPPORTS** Anki v2.38. 
+
 Obsidianki is an [Anki](https://github.com/ankitects/anki) plugin that allows you to import your obsidian vault into Anki. It can generate clozes for your cards with bold(`**bold**`), italics(`**italics**`), highlight(`==highlight==`), wiki-links(`[[wikilinks]]`), inline code (`code`), inline math(`\(\dfrac{1}{2}\)`), and display math(`\[\dfrac{1}{2}\]`).
 
 *Note that this add-on is written for Mac and takes advantage of Mac's url scheme feature. I don't know if it will work on windows or linux.*
