@@ -58,7 +58,7 @@ class File:
 				code_beginning = not code_beginning
 			if not code_beginning:
 				self.file_lines[index] = line_processing.convert(self.file_lines[index])
-				if self.file_lines[index][0] == "#" and self.file_lines[index][1] == " ":
+				if self.file_lines[index][0] == "#" and self.file_lines[index][1] == " " and self.first_heading_1:
 					self.first_heading_1 = False
 					self.file_lines[index] = self.gen_file_obsidian_url(self.file_lines[index])
 					
@@ -130,6 +130,7 @@ class File:
 		card_model = mw.col.models.byName("Obsidianki")
 		
 		note_list = mw.col.find_notes(str(self.file_ztk_id))
+		find_existing_file = False
 		if len(note_list) > 0:
 			for single_note_id in note_list:
 				single_note = mw.col.getNote(single_note_id)
@@ -142,7 +143,8 @@ class File:
 						for tag in self.tags:
 							single_note.addTag(tag)
 						single_note.flush()
-		else:
+						find_existing_file = True 
+		if not find_existing_file:
 			note_object = mw.col.newNote(deck_id)
 			note_object["Cloze"] = "{{c1::}}"
 			note_object["Text"] = ""
