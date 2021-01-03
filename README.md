@@ -120,7 +120,7 @@ For that file, it reads everything that it has, and see if anything needs to be 
 - Inline Math
 - Display Math
 
-By default, bold, italics, inline code, and inline math are converted, while highlight, wikilinks, and display math are not. 
+By default, highlight, italics, inline code, and inline math are converted, while bold, wikilinks, and display math are not. 
 
 ### Wikilink Generation
 

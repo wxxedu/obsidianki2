@@ -40,6 +40,7 @@ def conversion(line_segments):
 	display_math_is_open = True
 	inline_math_is_open = True
 	italics_is_open = True
+	inline_code_is_open = True
 	for i in range(0, len(line_segments) - 1):
 		if i < len(line_segments) -1:
 			if line_segments[i] == "*" and line_segments[i+1] == "*":
@@ -83,6 +84,13 @@ def conversion(line_segments):
 				else:
 					line_segments[i] = get_cloze("italics", "end") + "*"
 					italics_is_open = True
+			elif line_segments[i] == "`":
+				if inline_code_is_open:
+					line_segments[i] = "`" + get_cloze("inline code", "begin")
+					inline_code_is_open = False
+				else:
+					line_segments[i] = get_cloze("inline code", "end") + "`"
+					inline_code_is_open = True 
 		if i == len(line_segments) - 1:
 			if line_segments[i] == "$":
 				if not inline_math_is_open:
