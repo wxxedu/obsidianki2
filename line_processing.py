@@ -14,10 +14,8 @@ def convert(line_content):
 	return line_content
 	
 def get_cloze(syntax, begin_or_end):
-	
-	syntaxes = settings.whether_to_convert
-	if syntaxes[syntax]:
-		if syntaxes[syntax] == "inline math" or syntaxes[syntax] == "inline math":
+	if settings.get_settings_for(syntax):
+		if syntax == "inline math":
 			cloze = {"begin": "{{c¡::", "end": " }}"}
 		else:
 			cloze = {"begin": "{{c¡::", "end": "}}"}

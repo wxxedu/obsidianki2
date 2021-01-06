@@ -20,10 +20,10 @@ def refresh_obsidian_database():
 	
 def read_vault():
 	files = []
-	folders_catalog = os.listdir(settings.path_to_vault)
+	folders_catalog = os.listdir(settings.get_path_to_vault())
 	for folder_name in folders_catalog:
 		if not (folder_name[0] == "." or folder_name == "_cover.jpg" or folder_name.split(".")[len(folder_name.split("."))-1] == "md"):
-			folder_path = settings.path_to_vault + "/" + folder_name
+			folder_path = settings.get_path_to_vault() + "/" + folder_name
 			files_catalog = os.listdir(folder_path)
 			for file_name in files_catalog:
 				file_name_segments = file_name.split(".")

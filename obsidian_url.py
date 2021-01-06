@@ -3,21 +3,25 @@
 from aqt.utils import showInfo
 from . import settings
 import os 
+import aqt
 import datetime
 
 vault_root_url = "obsidian://open?vault="
 file_root_url = "&file="
-vault_name = settings.vault_name
+vault_name = settings.get_vault_name()
 
 folders = {}
 files = {}
-folders_catalog = os.listdir(settings.path_to_vault)
+try:
+	folders_catalog = os.listdir(settings.get_path_to_vault())
+except FileNotFoundError:
+	settings.ObsidiankiSettings(aqt.mw)
 folders_removed = []
 
 def refresh_obsidian_catalog():
 	for folder_name in folders_catalog:
 		if not (folder_name[0] == "." or folder_name == "_cover.jpg" or folder_name.split(".")[len(folder_name.split("."))-1] == "md"):
-			folder_path = settings.path_to_vault + "/" + folder_name
+			folder_path = settings.get_path_to_vault() + "/" + folder_name
 			files_catalog = os.listdir(folder_path)
 			for file_name in files_catalog:
 				file_name_segments_1 = file_name.split(".")
