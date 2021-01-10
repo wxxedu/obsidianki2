@@ -17,6 +17,10 @@ def refresh_obsidian_database():
 	files = read_vault()
 	for file_object in files:
 		file_object.write_to_anki()
+	showInfo("Imported from Obsidian")
+	mw.reset()
+	mw.update()
+		
 	
 def read_vault():
 	files = []

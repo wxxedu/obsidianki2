@@ -72,7 +72,7 @@ class File:
 					
 	
 	def get_markdown(self):
-		markfile = markdown2.markdown(self.file_content, extras = ["fenced-code-blocks", "metadata", "strike", "tables", "tag-friendly", "task_list", "break-on-newline"])
+		markfile = markdown2.markdown(self.file_content, extras = ["fenced-code-blocks", "metadata", "strike", "tables", "tag-friendly", "task_list", "break-on-newline", "footnotes"])
 #		markfile_content = markfile.replace("<h1>", "<h1>" + self.gen_file_obsidian_url() + "[[")
 #		markfile_content = markfile_content.replace("</h1>", "]]</a></h1>")
 		self.metadata = markfile.metadata

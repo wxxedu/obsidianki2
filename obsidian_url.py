@@ -22,23 +22,26 @@ def refresh_obsidian_catalog():
 	for folder_name in folders_catalog:
 		if not (folder_name[0] == "." or folder_name == "_cover.jpg" or folder_name.split(".")[len(folder_name.split("."))-1] == "md"):
 			folder_path = settings.get_path_to_vault() + "/" + folder_name
-			files_catalog = os.listdir(folder_path)
-			for file_name in files_catalog:
-				file_name_segments_1 = file_name.split(".")
-				if file_name_segments_1[len(file_name_segments_1)-1] == "md":
-					file_name_segments_2 = file_name.split(" ")
-					try:
-						ztk_id = int(file_name_segments_2[0])
-					except ValueError:
-						time = datetime.datetime.now()
-						time_str = time.strftime("%y%m%d%H%M%S")
-						ztk_id = int(time_str)
-					file_name_segments_3 = []
-					for index in range(0, len(file_name_segments_1) - 1):
-						file_name_segments_3.append(file_name_segments_1[index])
-					file_name = " ".join(file_name_segments_3)
-					folders[ztk_id] = folder_name
-					files[ztk_id] = file_name
+			try:
+				files_catalog = os.listdir(folder_path)
+				for file_name in files_catalog:
+					file_name_segments_1 = file_name.split(".")
+					if file_name_segments_1[len(file_name_segments_1)-1] == "md":
+						file_name_segments_2 = file_name.split(" ")
+						try:
+							ztk_id = int(file_name_segments_2[0])
+						except ValueError:
+							time = datetime.datetime.now()
+							time_str = time.strftime("%y%m%d%H%M%S")
+							ztk_id = int(time_str)
+						file_name_segments_3 = []
+						for index in range(0, len(file_name_segments_1) - 1):
+							file_name_segments_3.append(file_name_segments_1[index])
+						file_name = " ".join(file_name_segments_3)
+						folders[ztk_id] = folder_name
+						files[ztk_id] = file_name
+			except FileNotFoundError:
+				"No file in this directory"
 	
 def gen_obsidian_url(ztk_id):
 	vault_url = vault_root_url + my_encode(vault_name)
